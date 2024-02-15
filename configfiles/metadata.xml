@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Entities>
+    <ExtensionPackages>
+        <ExtensionPackage
+         dependsOn=""
+         description="Allows to define blocking (synchronous) Script Services that will be executed in their own thread."
+         haCompatible="true"
+         minimumThingWorxVersion="9.1.0"
+         name="thingworx-executor-extension"
+         packageVersion="0.1.4"
+         vendor="">
+            <JarResources>
+                <FileResource
+                 description=""
+                 file="thingworx-executor-extension.jar"
+                 type="JAR"></FileResource>
+            </JarResources>
+        </ExtensionPackage>
+    </ExtensionPackages>
+    <ThingPackages>
+        <ThingPackage
+         className="ext.sma.tw.ServiceExecutorTemplate"
+         description=""
+         name="ServiceExecutorPackage"></ThingPackage>
+    </ThingPackages>
+    <ThingTemplates>
+        <ThingTemplate
+         aspect.isEditableExtensionObject="false"
+         description="All the (script) services definied on Things based on this Template will run in a ExecutorService associate to that Thing. Synchronous services are still blocking. Service execution can timeout. Each service invocation will start a new transaction."
+         name="ServiceExecutorTemplate"
+         thingPackage="ServiceExecutorPackage"></ThingTemplate>
+    </ThingTemplates>
+</Entities>
