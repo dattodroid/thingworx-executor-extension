@@ -3,8 +3,7 @@
 
 # ThingWorx Service Executor extension
 
-This extension allows to define synchonous Script Services that will be executed in their own thread.
-It was created to run the Script Services within its own transaction and workaround ThingWorx automatic transaction handling.
+This extension allows to define synchonous Script Services that will be executed in their own thread. It was created to run a Script Service within its own transaction and workaround ThingWorx automatic transaction handling.
 
 ### Key capabilities
 
