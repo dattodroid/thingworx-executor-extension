@@ -23,4 +23,4 @@ This extension allows to define synchonous Script Services that will be executed
 
 ### Implementation info
 
-    ServiceExecutorTemplate is just overriding the processServiceRequest() and processAPIServiceRequest() methods
+`ServiceExecutorTemplate` is just overriding the `processServiceRequest()` and `processAPIServiceRequest()` methods
