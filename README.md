@@ -1,41 +1,27 @@
 > [!CAUTION]
-> Use at your own risk: This extension is intended for educational purposes and has undergone limited testing.
+> This extension was created for educational purposes and has undergone no testing. It is neither supported nor endorsed by PTC.
 
-This ThingWorx Extension allows to browse through the platform’s JVM JMX Beans and expose them as properties.
+# ThingWorx Service Executor extension
 
-## Features
+This extension allows to define synchonous Script Services that will be executed in their own thread.
+It was created to run the Script Services within its own transaction and workaround ThingWorx automatic transaction handling.
 
-1. Privides a Mashup to browse the JMX MBeans and attributes from ThingWorx  (similar to jconsole)
-2. Ability to _bind_ JMX attributes to modeled properties on generic Things
+### Key capabilities
 
-## Installation
+- The Service execution can time out and be interrupted
+- Every invocation of the Service operates within its own transaction
 
-1. Import the JMXMonitor Extension
-2. (Optional) Unzip and Import the demo entities to get sample MBeans containers (OS, c3p0, JVM) and Mashup with metrics
+### Usage
 
-## Usage
+1. Import the thingworx-executor-extension Extension
+2. Create a Thing that extends `ServiceExecutorTemplate`
+3. Define a synchronous service on that thing (with no restrictions)
+4. Invoke that service like any other Service (from REST, WS , another Service Script, ...)
+  * Each ServiceExecutor thing starts an FixedThreadPool Executor. Limit the number of ServiceExecutor things if you don't want to spawn too many threads. 
+      * the thread pool count is configurable from the thing's Configuration tab (default=3).
+  * The services execution is blocking with timeout. The same timeout is used for all the services on that thing.
+    * the timeout is configurable from the thing's Configuration tab (default=30sec).
 
-- Use the `JMX.MainMashup` to browse the JMX attributes and create MBean container Things
+### Implementation info
 
-![Slide1](https://github.com/dattodroid/thingworx-executor-extension/assets/159778604/469ba7a6-404b-4c89-ab78-cf62fa8b29d3)
-
-- Tips
-  - Press [Enter] in the MBean Filter field to start searching
-  - Use the [View] links on the Container Thing to directly access its property page in Composer
-
-![Slide2](https://github.com/dattodroid/thingworx-executor-extension/assets/159778604/bb2e01b0-2c28-4ff1-9d92-9573f11e54d9)
-
-- The attributes are exposed as normal properties on the container Things
-  - Property values are automatically pulled from the JVM when accessed (driven by `aspect.cacheTime`)
-  - Use the `RefreshMBeanAttributes` service to read values in batch (other services such as `GetPropertyValues` are also working, but the refresh service is more efficient) - you can call this service at regular internal from a timer to log the property values.
-
-## (Optional) JMXDemo_Entities.xml
-
-- Contains few sample container Things:
-  - `jmx.OS` Thing - OperationSystem metrics: free memory and CPU usages...
-  - `jmx.JVM` Thing - JVM metrics: Heap Memory usage and number of Threads ...
-  - `jmx.C3P0.PP1` Thing - Persistence Provider Connection Pool metrics: active connections, treads ...
-- Enable the `jmx.RefreshTimer` timer to start logging historical data
-- Use the mashup `jmx.DemoMetrics` to graph those metrics
-
-![Slide3](https://github.com/dattodroid/thingworx-executor-extension/assets/159778604/3df3d9f8-2224-426b-a4d3-ba7139f9e825)
+    ServiceExecutorTemplate is just overriding the processServiceRequest() and processAPIServiceRequest() methods

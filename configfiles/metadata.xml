@@ -3,12 +3,12 @@
     <ExtensionPackages>
         <ExtensionPackage
          dependsOn=""
-         description="Allows to define blocking (synchronous) Script Services that will be executed in their own thread."
+         description="Runs a synchronous Script Service within its own transaction"
          haCompatible="true"
          minimumThingWorxVersion="9.1.0"
          name="thingworx-executor-extension"
          packageVersion="0.1.4"
-         vendor="">
+         vendor="sma">
             <JarResources>
                 <FileResource
                  description=""
