@@ -16,6 +16,8 @@ import com.thingworx.metadata.annotations.ThingworxConfigurationTableDefinition;
 import com.thingworx.metadata.annotations.ThingworxConfigurationTableDefinitions;
 import com.thingworx.metadata.annotations.ThingworxDataShapeDefinition;
 import com.thingworx.metadata.annotations.ThingworxFieldDefinition;
+import com.thingworx.metadata.annotations.ThingworxPropertyDefinition;
+import com.thingworx.metadata.annotations.ThingworxPropertyDefinitions;
 import com.thingworx.persistence.TransactionFactory;
 import com.thingworx.security.context.SecurityContext;
 import com.thingworx.system.ContextType;
@@ -29,7 +31,7 @@ import com.thingworx.webservices.context.ThreadLocalContext;
 				@ThingworxFieldDefinition(name = ServiceExecutorTemplate.CONFIG_TABLE_TIMEOUT, description = "Service timeout in seconds", baseType = "INTEGER", aspects = {
 						"defaultValue:30", "friendlyName:Service Execution Timeout" }, ordinal = 1),
 				@ThingworxFieldDefinition(name = ServiceExecutorTemplate.CONFIG_TABLE_THREADCOUNT, description = "Worker Thread Count", baseType = "INTEGER", aspects = {
-						"defaultValue:3", "friendlyName:ExecutorService Thread Count" }, ordinal = 2) })) })
+						"defaultValue:15", "friendlyName:ExecutorService Thread Count" }, ordinal = 2) })) })
 
 @ThingworxBaseTemplateDefinition(name = "GenericThing")
 public class ServiceExecutorTemplate extends Thing {
@@ -73,7 +75,7 @@ public class ServiceExecutorTemplate extends Thing {
 	}
 
 	private int getThreadCount() {
-		return ((Integer) getConfigurationSetting(CONFIG_TABLE_SETTINGS, CONFIG_TABLE_TIMEOUT)).intValue();
+		return ((Integer) getConfigurationSetting(CONFIG_TABLE_SETTINGS, CONFIG_TABLE_THREADCOUNT)).intValue();
 	}
 
 	private int getTimeout() {

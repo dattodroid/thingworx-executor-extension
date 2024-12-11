@@ -7,7 +7,7 @@
          haCompatible="true"
          minimumThingWorxVersion="9.1.0"
          name="thingworx-executor-extension"
-         packageVersion="0.1.4"
+         packageVersion="0.1.5"
          vendor="sma">
             <JarResources>
                 <FileResource
